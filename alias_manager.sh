@@ -264,7 +264,7 @@ while [ "$redo" = "a" ]; do
     update|Update|UPDATE )
                      clear >$(tty)
 		     
-		     echo "Please, make sure you are connected to the internet and curl is installed on your machine"
+		     echo "Please, make sure you are connected to the internet and \"curl\" is installed on your machine"
 		     read -n 1 -r -s -p $'Press enter to continue, or ctrl + c to abort...\n'
 		     echo ""
 
@@ -307,7 +307,7 @@ while [ "$redo" = "a" ]; do
 		       fi
 		     else
 		       echo "It looks like you're not connected to the internet (or you don't have access to github)" 
-		       echo "Please, make sure you're connected to the internet and curl is installed on your machine, then try again"
+		       echo "Please, make sure you're connected to the internet and \"curl\" is installed on your machine, then try again"
 		       echo ""
 		       echo "The Alias Manager program will automatically relaunch in a few seconds"
 		       sleep 15
