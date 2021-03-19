@@ -281,7 +281,7 @@ while [ "$redo" = "a" ]; do
                          echo "A new update is available"
 		         read -n 1 -r -s -p $'Press enter to install it, or ctrl + c to abort...\n'
 		         echo ""
-		         ~/.alias_manager/update_alias_manager.sh
+		         source ~/.alias_manager/update_alias_manager.sh
 		         redo="x"
 		       else
 		         echo "You're running the latest version of the Alias Manager program :)"
