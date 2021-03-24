@@ -2,6 +2,7 @@
 
 echo ""
 mkdir ~/.alias_manager && echo "Alias manager directory successfully created"
+
 curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/alias_manager.sh --output alias_manager.sh && mv alias_manager.sh ~/.alias_manager/ && echo "Alias manager program successfully downloaded"
 
 curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/update_alias_manager.sh --output update_alias_manager.sh && mv update_alias_manager.sh ~/.alias_manager/ && echo "Update script successfully downloaded"
