@@ -11,7 +11,7 @@ This program has been deeply tested (with unit tests) on Ubuntu (20.04), Debian 
 * [Update](#update)
 * [Uninstallation](#uninstallation)
 * [Releases](#releases)
-* [Technologies](#technologies)
+* [Technologies and prerequisites](#technologies)
 
 
 ## Description
