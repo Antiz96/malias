@@ -11,7 +11,7 @@ This program has been deeply tested (with unit tests) on Ubuntu (20.04), Debian 
 * [Update](#update)
 * [Uninstallation](#uninstallation)
 * [Releases](#releases)
-* [Technologies](#technologies)
+* [Technologies and prerequisites](#technologies-and-prerequisites)
 
 
 ## Description
@@ -94,7 +94,7 @@ V1.1     | Creation of automated scripts for update and uninstallation
 V1.2     | Added options to update and uninstall the Alias Manager program directly within the main "menu" (recommended usage as of now)
 V1.2.1   | The Alias Manager program now asks for a confirmation before adding an alias through the "add" option
 
-## Technologies
+## Technologies and prerequisites
 
 The Alias Manager program has been entirely written with bash (Version 5.1.4)
 
