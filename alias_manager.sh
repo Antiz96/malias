@@ -83,7 +83,10 @@ while [ "$relaunch" = "y" ]; do
 			#Otherwise, download the lastest update script and launch it
 			else
 				curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/update_alias_manager.sh -o ~/.alias_manager/update_alias_manager.sh && chmod +x ~/.alias_manager/update_alias_manager.sh && source ~/.alias_manager/update_alias_manager.sh || exit 1
-				relaunch="n"
+				#If an update has been applied, stop the Alias Manager program (so the user car relaunch it to switch to the new version)
+				if [ "$?" -eq 1 ]; then
+					relaunch="n"
+				fi
 			fi
 		;;
 		uninstall)

@@ -31,7 +31,7 @@ if [ "$current_version" != "$latest_version" ]; then
 
 	#Echo "succesfully updated" + giving some info to the user 
 	echo -e "\nThe Alias Manager program has been successfully updated to the \"$latest_version\" version\nCheck this link to read the changelog : https://github.com/Antiz96/alias_manager#changelog\n\nPlease, relaunch the Alias Manager program to switch to the new version"
-
+	return 1
 else
 	echo "You're already running the latest version of the Alias Manager program :)"
 fi
