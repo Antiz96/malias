@@ -7,7 +7,7 @@
 ###################################################################################################################
 
 #Var that determines the current version of the Alias Manager program (used in the "update" section to check if the program is up to date or not)
-current_version="2.0"
+current_version="2.1"
 
 #Vars that verifies if curl is installed on the machine and if the machine is connected to the internet (prerequisites for the "update" function)
 curl_status=$(which curl > /dev/null && echo "ok")
@@ -37,7 +37,7 @@ while [ "$relaunch" = "y" ]; do
 	if [ "$curl_status" = "ok" ] && [ "$internet_status" = "ok" ]; then
 		latest_version=$(curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/latest_release.txt)
 		if [ "$current_version" != "$latest_version" ]; then
-			echo -e "\nA new update is available !\nType \"update\" to download it !"
+			echo -e "\n--A new update is available, type \"update\" to download it !--"
 		fi
 	fi
 	
