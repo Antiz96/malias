@@ -4,7 +4,7 @@
 clear >"$(tty)"
 
 #Retrieve the current version from the "alias_manager.sh" script
-current_version=$(grep -w "current_version" ~/.alias_manager/alias_manager.sh | cut -f2 -d"=" | sed "s/\"//g")
+current_version=$(grep -wm 1 "current_version" ~/.alias_manager/alias_manager.sh | cut -f2 -d"=" | sed "s/\"//g")
 
 #Just a quick summary of how this program works and various information
 echo "Description : alias_manager is a program that helps you manage your aliases"

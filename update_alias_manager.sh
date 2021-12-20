@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Retrieve the current version from the "alias_manager.sh" script
-current_version=$(grep -w "current_version" ~/.alias_manager/alias_manager.sh | cut -f2 -d"=" | sed "s/\"//g")
+current_version=$(grep -wm 1 "current_version" ~/.alias_manager/alias_manager.sh | cut -f2 -d"=" | sed "s/\"//g")
 
 #Var that determines the latest version available for the Alias Manager program (used to check if the program is up to date or not)
 latest_version=$(curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/latest_release.txt)
