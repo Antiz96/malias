@@ -2,22 +2,6 @@
 
 "Alias Manager" is a program that helps you manage your aliases
 
-**Important Note :**
-
-*Since the release of the "2.0" version that came out in the end of December 2021, everyone that already had the Alias Manager program installed before this release (and thus still using a "1.X" version) will need to update it "manually" by typing the following command in their terminal :*
-
-`curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/update_alias_manager.sh -o ~/.alias_manager/update_alias_manager.sh && chmod +x ~/.alias_manager/update_alias_manager.sh && source ~/.alias_manager/update_alias_manager.sh`
-
-*Indeed, the big changes in the structure of the code brought by the "2.0" version make the automated update from version "1.X" to version "2.X" impossible*
-
-*Performing an automated update through the main menu from a "1.X" version will now result in a error and will break the program*
-
-*Don't worry tho, you only need to launch the above command to fix it by updating to the latest version*
-
-*You'll then be able to perform automated updates through the main menu as before*
-
-*I apologize for that extra step. Fortunately, the structure changes brought by the "2.0" version will prevent such problems for the future ! :)*
-
 ## Table of contents
 * [Description](#description)
 * [Installation](#installation)
