@@ -12,7 +12,7 @@ if [ "$current_version" != "$latest_version" ]; then
 	read -n 1 -r -s -p $'Press \"enter\" to install it, or \"ctrl + c\" to abort...\n'
 	
 	#Update
-	echo "Update in progress..."
+	echo -e "\nUpdate in progress..."
 
 	#Create the Alias Manager's working directory (if it doesn't exist)
 	mkdir -p ~/.alias_manager || exit 1
