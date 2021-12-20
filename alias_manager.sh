@@ -7,378 +7,130 @@
 ###################################################################################################################
 
 #Var that determines the current version of the Alias Manager program (used in the "update" section to check if the program is up to date or not)
-current_version="V1.2.1"
+current_version="2.0"
 
-#Var that determines whether if the program is going to relaunch or not. The entire program is encapsulated into a "while" loop determined by this var.
-redo="a"
+#Vars that verifies if curl is installed on the machine and if the machine is connected to the internet (prerequisites for the "update" function)
+curl_status=$(which curl > /dev/null && echo "ok")
+internet_status=$(curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/latest_release.txt > /dev/null && echo "ok")
 
-while [ "$redo" = "a" ]; do
+#Var that determines whether if the program is going to relaunch or not. The entire program is encapsulated into a "while" loop determined by this var
+relaunch="y"
 
-  #Clear the screen
-  clear >$(tty)
+while [ "$relaunch" = "y" ]; do
 
-  echo "##################################################################################"
-  echo "#                      Hello ! Welcome to the alias manager                      #"
-  echo "##################################################################################"
-  echo ""
-  echo "Please, type one of the following : "
-  echo "add           (adding an alias)"
-  echo "remove        (removing an alias)"
-  echo "list          (list all your current aliases)"
-  echo "update        (check for available update and apply them)"
-  echo "uninstall     (uninstall the Alias Manager program)"
-  echo "readme        (display some information about the Alias Manager program)"
-  echo "exit          (quit the Alias Manager program)"
-  echo ""
-  echo "Please, consider running \"update\" from time to time, to make sure you're using the latest version of the Alias Manager program"
-  echo ""
-  read -p "What do you want to do ? : " operation
-  echo ""
+	#Reset the relaunch var
+	unset relaunch
 
-  case "$operation" in
-    add|Add|ADD )
-                  clear >$(tty)
+	#Clear the screen
+        clear >"$(tty)"
 
-                  read -p "Please, type the alias name you want to add : " name_alias
-                  read -p "Please, type the command you want to associate your alias name with : " command_alias
-                  echo ""
+	echo -e "Hello and welcome to the Alias Manager !\nYou're currently using the \"$current_version\" version\n"
+	echo "Please, type one of the following options : "
+	echo "add           (Adding an new alias)"
+	echo "remove        (Removing an alias)"
+	echo "list          (List all your current aliases)"
+	echo "update        (Update the Alias Manager program)"
+	echo "uninstall     (Uninstall the Alias Manager program)"
+	echo "readme        (Display some information about the Alias Manager program)"
+	echo "exit          (Quit the Alias Manager program)"
 
-                  #Transform the user input in the right format
-                  new_alias="$name_alias"=\'"$command_alias"\'
-                  echo "The following alias will be added : "$new_alias""
-                  read -n 1 -r -s -p $'Press enter to continue, or ctrl + c to abort...\n'
-                  echo ""
+	if [ "$curl_status" = "ok" ] && [ "$internet_status" = "ok" ]; then
+		latest_version=$(curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/latest_release.txt)
+		if [ "$current_version" != "$latest_version" ]; then
+			echo -e "\nA new update is available !\nType \"update\" to download it !"
+		fi
+	fi
+	
+	read -rp $'\nWhat do you want to do ? : ' action
+	action=$(echo "$action" | awk '{print tolower($0)}')
 
-                  #Creates a backup of .bashrc file, adds the new alias to the .bashrc file and checks for potential errors
-                  cp -p ~/.bashrc ~/.bashrc-bck-alias_manager-`date +"%d-%m-%Y"` && echo "Backup of .bashrc file created"
-                  echo "alias" "$new_alias" >> ~/.bashrc
-                  source_error=$(source ~/.bashrc 2>/dev/null; echo $?)
+	case "$action" in
+		add)
+			source ~/.alias_manager/add_alias_manager.sh
+		;;
+		remove)
+			source ~/.alias_manager/remove_alias_manager.sh
 
-                  #If there's no error, tells the user that the alias has been added successfully and delete the backup of .bashrc file. Then, asks if the user wants to quit the program or relaunch it to do another action.
-                  if [ "$source_error" = 0 ]; then
-                    source ~/.bashrc && echo "Alias "$new_alias" successfully added"
-                    echo ""
-                    rm -f ~/.bashrc-bck-alias_manager-`date +"%d-%m-%Y"` && echo "Backup of .bashrc file deleted"
-                    echo ""
-                    read -p "Do you wish to do another operation ? (yes/no) : " answer
-                    case "$answer" in
-                      y|Y|yes|Yes|YES )
-                                        echo ""
-                                        echo "Program is relaunching"
-                      ;;
-                      n|N|no|No|NO )
-                                      echo ""
-                                      echo "Goodbye !"
-                                      #Get out of the while loop
-                                      redo="x"
-                      ;;
-                      * )
-                          echo ""
-                          echo "Error, the program expected \"yes\" or \"no\""
-                          echo "Program is shutting down"
-                          redo="x"
-                      ;;
-                    esac
+			#If the number selected by the user in the "remove_alias_manager.sh" script is wrong, relaunch the Alias Manager program
+			if [ "$?" -eq 1 ]; then
+				relaunch="y"
+			fi
+		;;
+		list)
+			source ~/.alias_manager/list_alias_manager.sh
+		;;
+		update)
+			clear >"$(tty)"
 
-                  #If there's an error, prints the error to the user and restores the backup file. Then, asks if the user wants to quit the program or relaunch it to do another action.
-                  else
-                    echo ""
-                    echo "An error has occurred"
-                    echo ""
-                    echo "Please verify that your alias is correct and respects the following format : alias_name='command'"
-                    echo "Also, be aware that your alias name cannot contain spaces. However, it can contain \"-\" or \"_\""
-                    echo ""
-                    rm -f ~/.bashrc && mv ~/.bashrc-bck-alias_manager-`date +"%d-%m-%Y"` ~/.bashrc && echo "Backup of .bashrc file restored"
-                    echo ""
-                    read -p "Do you wish to do another operation ? (yes/no) : " answer
-                    case "$answer" in
-                      y|Y|yes|Yes|YES )
-                                        echo ""
-                                        echo "Program is relaunching"
-                      ;;
-                      n|N|no|No|NO )
-                                      echo ""
-                                      echo "Goodbye !"
-                                      redo="x"
-                      ;;
-                      * )
-                          echo ""
-                          echo "Error, the program expected \"yes\" or \"no\""
-                          echo "Program is shutting down"
-                          redo="x"
-                      ;;
-                    esac
-                  fi
-    ;;
-    remove|Remove|REMOVE )
-                           clear >$(tty)
+			echo -e "Checking for available update...\n"
 
-                           #Just a quick disclaimer with an interessting "Press enter to continue" code at the end
-                           echo "##########################################################################################################################################"
-                           echo "#                                                        DISCLAIMER                                                                      #"
-                           echo "##########################################################################################################################################"
-                           echo "Please, be careful when using the \"remove\" function"
-                           echo "Be aware that some aliases may be automatically created by the system itself for internal operations"
-                           echo "I advise you to only remove aliases you created yourself (or only if you know their purposes)"
-                           echo "Also, the \"alias_manager\" specific alias is voluntarily not shown here so you can't remove it through this program (which could break it)"
-                           echo "If you want to remove the \"alias_manager\" alias anyway, you can do so by uninstalling the program"
-                           echo ""
-                           #https://www.tweaking4all.com/software/linux-software/bash-press-any-key/
-                           read -n 1 -r -s -p $'Press enter to continue, or ctrl + c to abort...\n'
-                           echo ""
+			#If "curl" is not installed on the machine, print an error to the user 
+			if [ "$curl_status" != "ok" ]; then
+				echo "Error : It looks like \"curl\" is not installed on your machine"
+			fi
 
-                           #Puts the aliases list in a temporary file, excluding the "alias_manager" alias, so the user can't delete it (otherwise this program won't work anymore by simply typing the "alias_manager" command)
-                           alias | grep -v "alias alias_manager='source ~/.alias_manager/alias_manager.sh'" > ~/.alias_list.txt
+			#If the machine cannot access to "github.com", print an error to the user
+			if [ "$internet_status" != "ok" ]; then
+				echo "Error : It looks like your machine is not connected to the internet (or do not have access to \"github.com\")"
+			fi
 
-                           #Prints the aliases list with a unique number in front of each aliases, so the user can select the alias to delete by simply typing its associated number
-                           echo "Aliases list :"
-                           echo ""
-                           alias_number=$(wc -l ~/.alias_list.txt | awk '{print $1}')
-                           i=1
-                           until [ "$i" -gt "$alias_number" ]; do
-                             echo "$i - `sed -n "$i"p ~/.alias_list.txt`"
-                             ((i=i+1))
-                           done
-                           echo ""
-                           read -p "Please, select the number associated to the alias you want to remove : " alias_selected
-                           echo ""
+			#If "curl" is not installed or the machine is not connected to the internet (or both), abort update and relaunch the Alias Manager program
+			if [ "$curl_status" != "ok" ] ; [ "$internet_status" != "ok" ]; then
+				echo -e "Please, make sure \"curl\" is installed and your machine is connected to the internet\n"
+				echo -e "The update process has been aborted\n"
+				read -n 1 -r -s -p $'Press \"enter\" to restart the Alias Manager program, or \"ctrl + c\" to quit...\n'
+				relaunch="y"
+			#Otherwise, download the lastest update script and launch it
+			else
+				curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/update_alias_manager.sh -o ~/.alias_manager/update_alias_manager.sh && chmod +x ~/.alias_manager/update_alias_manager.sh && source ~/.alias_manager/update_alias_manager.sh || exit 1
+				relaunch="n"
+			fi
+		;;
+		uninstall)
+			clear >"$(tty)"
 
-                           #If the number selected by the user is correct, creates a backup of .bashrc file and deletes the associated alias + unalias the alias.
-                           if [ "$alias_selected" -le "$alias_number" ] && [ "$alias_selected" -gt "0" ]; then
-                             echo ""
+			#Ask for a confirmation
+			echo "You're about to uninstall the Alias Manager program"
+			read -n 1 -r -s -p $'Press \"enter\" to continue, or \"ctrl + c\" to abort...\n'
+			source ~/.alias_manager/uninstall_alias_manager.sh
+			relaunch="n"
+		;;
+		readme)
+			source ~/.alias_manager/readme_alias_manager.sh
+		;;
+		exit)
+   			#Just quitting the program
+			echo -e "\nGoodbye !"
+			relaunch="n"
+		;;
+		*)
+			clear >"$(tty)"
 
-                             #Retrieve the alias associated to the number inputted by the user in the right patterns
-                             alias_remove=$(sed -n "$alias_selected"p ~/.alias_list.txt | cut -f1- | sed 's/[^ ]* //')
-                             alias_unalias=$(sed -n "$alias_selected"p ~/.alias_list.txt | cut -f1- | sed 's/[^ ]* //' | cut -f1 -d"=")
-                             echo "The following alias will be removed : "$alias_remove""
-			     read -n 1 -r -s -p $'Press enter to continue, or ctrl + c to abort...\n'
-			     echo ""
-                             cp -p ~/.bashrc ~/.bashrc-bck-alias_manager-`date +"%d-%m-%Y"` && echo "Backup of .bashrc file created"
-
-                             #Removing alias
-                             unalias_error=$(unalias "$alias_unalias" 2>/dev/null; echo $?)
-                             grep -Eiv "$alias_remove" ~/.bashrc > ~/.bashrc-new-alias_manager-`date +"%d-%m-%Y"` && rm -f ~/.bashrc && mv ~/.bashrc-new-alias_manager-`date +"%d-%m-%Y"` ~/.bashrc
-                             source_error=$(source ~/.bashrc 2>/dev/null; echo $?)
-
-                             #If there's no error, removes the alias, deletes the .bashrc backup file and deletes the temporary file containing the aliases list. Then, asks the user if he wants to relaunch the program or not.
-                             if [ "$unalias_error" = 0 ] && [ "$source_error" = 0 ]; then
-                               unalias "$alias_unalias" && echo "unalias successful"
-                               source ~/.bashrc && echo "alias successfully removed"
-                               echo ""
-                               rm -f ~/.bashrc-bck-alias_manager-`date +"%d-%m-%Y"` && echo "Backup of .bashrc file deleted"
-                               rm -f ~/.alias_list.txt
-                               echo ""
-                               read -p "Do you wish to do another operation ? (yes/no) : " answer
-                               case "$answer" in
-                                 y|Y|yes|Yes|YES )
-                                                   echo ""
-                                                   echo "Program is relaunching"
-                                 ;;
-                                 n|N|no|No|NO )
-                                                 echo ""
-                                                 echo "Goodbye !"
-                                                 redo="x"
-                                 ;;
-                                 * )
-                                     echo ""
-                                     echo "Error, the program expected \"yes\" or \"no\""
-                                     echo "Program is shutting down"
-                                     redo="x"
-                                 ;;
-                               esac
-
-                             #If there's an error, prints the error to the user and restores the backup file. Then, asks if the user wants to quit the program or relaunch it to do another action.
-                             else
-                               echo ""
-                               echo "An error has occurred : "
-                               unalias "$alias_unalias"
-                               source ~/.bashrc
-                               echo ""
-                               rm -f ~/.bashrc && mv ~/.bashrc-bck-alias_manager-`date +"%d-%m-%Y"` ~/.bashrc && echo "Backup of .bashrc file restored"
-                               rm -f ~/.alias_list.txt
-                               echo ""
-                               read -p "Do you wish to do another operation ? (yes/no) : " answer
-                               case "$answer" in
-                                 y|Y|yes|Yes|YES )
-                                                   echo ""
-                                                   echo "Program is relaunching"
-                                 ;;
-                                 n|N|no|No|NO )
-                                                 echo ""
-                                                 echo "Goodbye !"
-                                                 redo="x"
-                                 ;;
-                                 * )
-                                     echo ""
-                                     echo "Error, the program expected \"yes\" or \"no\""
-                                     echo "Program is shutting down"
-                                     redo="x"
-                                 ;;
-                               esac
-                             fi
-                           else
-                            echo "Error : Invalid input"
-                            echo ""
-                            echo "Please, select the number associated to the alias you want to remove"
-                            echo ""
-                            echo "The \"remove\" operation has been aborted"
-                            echo "The Alias Manager program will relaunch automatically in a few seconds"
-                            rm -f ~/.alias_list.txt
-                            sleep 15
-                           fi
-    ;;
-    list|List|LIST )
-                     clear >$(tty)
-
-                     #This is basically the exact same code block used in the "list" part of the "remove" function, except that the "alias_manager" specific alias is not excluded this time
-                     alias > ~/.alias_list.txt
-                     echo "Aliases list :"
-                     echo""
-                     alias_number=$(wc -l ~/.alias_list.txt | awk '{print $1}')
-                     i=1
-                     until [ "$i" -gt "$alias_number" ]; do
-                       echo "$i - `sed -n "$i"p ~/.alias_list.txt`"
-                       ((i=i+1))
-                     done
-                     rm -f ~/.alias_list.txt
-                     echo ""
-                     read -p "Do you wish to do another operation ? (yes/no) : " answer
-                     case "$answer" in
-                       y|Y|yes|Yes|YES )
-                                         echo ""
-                                         echo "Program is relaunching"
-                       ;;
-                       n|N|no|No|NO )
-                                       echo ""
-                                       echo "Goodbye !"
-                                       redo="x"
-                       ;;
-                       * )
-                           echo ""
-                           echo "Error, the program expected \"yes\" or \"no\""
-                           echo "Program is shutting down"
-                           redo="x"
-                       ;;
-                     esac
-    ;;
-    update|Update|UPDATE )
-                     clear >$(tty)
-		     
-		     echo "Please, make sure you are connected to the internet and \"curl\" is installed on your machine"
-		     read -n 1 -r -s -p $'Press enter to continue, or ctrl + c to abort...\n'
-		     echo ""
-
-                     #Var that determines the latest version available for the program (used to check if the program is up to date or not)
-		     get_latest_version=$(curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/latest_release.txt | grep "V" | wc -l)
-                     latest_version=$(curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/latest_release.txt)
-
-		     if [ "$get_latest_version" = 1 ]; then
-		       echo "You're current version is "$current_version""
-	  	       echo "The latest version available is "$latest_version""
-  		       echo ""
-
-		       if [ "$current_version" != "$latest_version" ]; then
-                         echo "A new update is available"
-		         read -n 1 -r -s -p $'Press enter to install it, or ctrl + c to abort...\n'
-		         echo ""
-		         source ~/.alias_manager/update_alias_manager.sh
-		         redo="x"
-		       else
-		         echo "You're running the latest version of the Alias Manager program :)"
-			 echo ""
-                         read -p "Do you wish to do another operation ? (yes/no) : " answer
-                         case "$answer" in
-                           y|Y|yes|Yes|YES )
-                                             echo ""
-                                             echo "Program is relaunching"
-                           ;;
-                           n|N|no|No|NO )
-                                           echo ""
-                                           echo "Goodbye !"
-                                           redo="x"
-                           ;;
-                           * )
-                               echo ""
-                               echo "Error, the program expected \"yes\" or \"no\""
-                               echo "Program is shutting down"
-                               redo="x"
-                           ;;
-                         esac
-		       fi
-		     else
-		       echo "It looks like you're not connected to the internet (or you don't have access to github)" 
-		       echo "Please, make sure you're connected to the internet and \"curl\" is installed on your machine, then try again"
-		       echo ""
-		       echo "The Alias Manager program will automatically relaunch in a few seconds"
-		       sleep 15
-		     fi
-    ;;
-    uninstall|Uninstall|UNINSTALL )
-	    	     clear >$(tty)
-
-		     echo "You're about to uninstall the Alias Manager program"
-		     read -n 1 -r -s -p $'Press enter to continue, or ctrl + c to abort...\n'
-		     echo ""
-
-		     source ~/.alias_manager/uninstall_alias_manager.sh
-		     redo="x"
-    ;;
-    readme|Readme|README )
-                           clear >$(tty)
-
-                           #Just a quick summary of how this program works and various information
-                           echo "###################################################################################################################"
-                           echo "#Description : alias_manager is a program that helps you manage your aliases 	                                   #"
-                           echo "#Author : Robin Candau                                                                                            #"
-                           echo "#Links : https://rc-linux.com/ - https://github.com/Antiz96 - https://www.linkedin.com/in/robin-candau-3083a2173/ #"
-                           echo "###################################################################################################################"
-                           echo ""
-                           echo "\"Alias manager\" is a bash script that will manage your aliases for you"
-                           echo "It will guide you through the process of adding and removing aliases and will automatise each operations for you"
-                           echo ""
-                           echo "Basically, it will edit your .bashrc file and add or remove aliases for you (depending on what you asked for)"
-                           echo "The .bashrc file is resourced after each operation for an immediate application, this way you do not need to reboot or logoff/logon to use your new aliases"
-                           echo ""
-                           echo "A backup of your .bashrc file is created under your home directory before each operations"
-                           echo "It is deleted or restored depending on the success of each operations"
-                           echo ""
-                           echo "If you want to learn more about this program, please visit this link : https://github.com/Antiz96/alias_manager"
-			   echo ""
-			   echo "You're current version is "$current_version""
-			   echo "Consider running \"update\" to check if you're using the last version of the Alias Manager program"
-                           echo ""
-			   echo ""
-                           read -p "Do you wish to do another operation ? (yes/no) : " answer
-                           case "$answer" in
-                             y|Y|yes|Yes|YES )
-                                               echo ""
-                                               echo "Program is relaunching"
-                             ;;
-                             n|N|no|No|NO )
-                                             echo ""
-                                             echo "Goodbye !"
-                                             redo="x"
-                             ;;
-                             * )
-                                 echo ""
-                                 echo "Error, the program expected \"yes\" or \"no\""
-                                 echo "Program is shutting down"
-                                 redo="x"
-                             ;;
-                           esac
-    ;;
-    exit|Exit|EXIT )
-                     #Just quitting the program
-                     echo "Goodbye !"
-                     redo="x"
-    ;;
-    * )
-       clear >$(tty)
-
-       #Relaunching the program
-       echo "Error : Invalid input"
-       echo "The Alias Manager program will relaunch automatically in a few seconds"
-       sleep 10
-    ;;
-  esac
+			#Print and error and restart the program
+			echo "Error : Invalid input"
+			echo "The Alias Manager program will restart automatically in a few seconds"
+			sleep 8
+			relaunch="y"
+		;;
+		esac
+		
+	#Ask the user if he wants to relaunch the program to perform another action
+	if [ -z "$relaunch" ]; then
+		read -rp $'\nDo you wish to do another action ? (yes/no) : ' answer
+		answer=$(echo "$answer" | awk '{print tolower($0)}')
+			
+		case "$answer" in
+			y|yes)
+				relaunch="y"
+			;;
+			n|no)
+				echo -e "\nGoodbye !"
+				relaunch="n"
+			;;
+			*)
+				echo -e "\nError, the program expected \"yes\" or \"no\"\nStopping the Alias Manager program"
+				relaunch="n"
+			;;
+		esac
+	fi
 done
