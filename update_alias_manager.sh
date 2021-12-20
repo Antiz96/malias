@@ -15,7 +15,7 @@ if [ "$current_version" != "$latest_version" ]; then
 	echo "Update in progress..."
 
 	#Create the Alias Manager's working directory (if it doesn't exist)
-	mkdir -p ~/.alias_manager && echo -e "\nAlias manager's working directory successfully created" || exit 1
+	mkdir -p ~/.alias_manager || exit 1
 
 	#Download all the scripts (except the "update" one because it is automatically downloaded by the "alias_manager.sh" script when performing an update)
 	curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/alias_manager.sh -o ~/.alias_manager/alias_manager.sh || exit 1
@@ -27,7 +27,7 @@ if [ "$current_version" != "$latest_version" ]; then
 	curl -s https://raw.githubusercontent.com/Antiz96/alias_manager/master/install_alias_manager.sh -o ~/.alias_manager/install_alias_manager.sh || exit 1
 
 	#Make all the scripts executable
-	chmod +x ~/.alias_manager/*.sh && echo "Execution permission succesfully applied" || exit 1
+	chmod +x ~/.alias_manager/*.sh || exit 1
 
 	#Echo "succesfully updated" + giving some info to the user 
 	echo -e "\nThe Alias Manager program has been successfully updated to the \"$latest_version\" version\nCheck this link to read the changelog : https://github.com/Antiz96/alias_manager#changelog\n\nPlease, relaunch the Alias Manager program to switch to the new version"

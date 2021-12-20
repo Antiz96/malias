@@ -16,7 +16,7 @@ until [ "$i" -gt "$alias_number" ]; do
 done
 
 #Ask the user which alias he wants to delete
-read -rp $'\nPlease, select the number associated to the alias you want to remove : ' alias_selected
+read -rp $'\nPlease, type the number associated to the alias you want to remove : ' alias_selected
 
 #If the number selected by the user is correct, create a backup of the .bashrc file and delete the associated alias in the .bashrc file + unalias the alias
 if [ "$alias_selected" -le "$alias_number" ] && [ "$alias_selected" -gt "0" ]; then
@@ -51,7 +51,7 @@ if [ "$alias_selected" -le "$alias_number" ] && [ "$alias_selected" -gt "0" ]; t
 	fi
 #If the number selected by the user is wrong, print an error and relaunch the program (via the "alias_manager.sh" script)
 else
-	echo -e "\nError : Invalid input\nPlease, make sure to select the number associated to the alias you want to remove\n"
+	echo -e "\nError : Invalid input\nPlease, make sure to type the number associated to the alias you want to remove\n"
 	echo -e "The \"remove\" action has been aborted\n"
 	rm -f ~/.alias_manager/.alias_list.txt
 	read -n 1 -r -s -p $'Press \"enter\" to restart the Alias Manager program, or \"ctrl + c\" to quit...\n'
