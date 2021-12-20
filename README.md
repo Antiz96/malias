@@ -21,7 +21,7 @@ It will guide you through the process of adding, removing and listing your alias
 
 Basically, it will edit your .bashrc file and add or remove aliases for you (depending on what you asked for)
 
-The .bashrc file is resourced after each operation for an immediate application, this way you do not need logoff/logon to use your new aliases
+The .bashrc file is resourced after each operations for an immediate application, this way you do not need logoff/logon to use your new aliases
 
 A backup of your .bashrc file is created under your home directory before each operations
 
