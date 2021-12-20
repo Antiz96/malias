@@ -2,6 +2,7 @@
 
 "Alias Manager" is a program that helps you manage your aliases
 
+
 ## Table of contents
 * [Description](#description)
 * [Installation](#installation)
