@@ -94,6 +94,7 @@ while [ "$relaunch" = "y" ]; do
 
 			#Ask for a confirmation
 			echo "You're about to uninstall the Alias Manager program"
+			echo -e "\nBe aware that all aliases added through the Alias Manager program will be keepeed\nDon't forget to remove them before the uninstallation if you don't want them anymore"
 			read -n 1 -r -s -p $'Press \"enter\" to continue, or \"ctrl + c\" to abort...\n'
 			source ~/.alias_manager/uninstall_alias_manager.sh
 			relaunch="n"
