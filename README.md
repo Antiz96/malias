@@ -105,4 +105,4 @@ The Alias Manager program has been entirely written with bash
 
 The automated installation and update require an internet connection and "curl" installed on your machine
 
-The Alias Manager program is intended to work with "bash" (which is the default on the vast majority of Linux distributions. With that said, be aware that it will not work if you use a different shell, such as "zsh" or "fish"
+The Alias Manager program is intended to work with "bash" (which is the default on the vast majority of Linux distributions). With that said, be aware that it will not work if you use a different shell, such as "zsh" or "fish".
