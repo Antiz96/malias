@@ -6,4 +6,4 @@ Anyone having alias_manager installed on their machines are invited to uninstall
 <br>
 Malias is currently being deeply tested
 
-**Wait for this README to be redacted before installing Malias**
+**Wait for this README to be redacted before installing Malias, it is still in test stage for now**
