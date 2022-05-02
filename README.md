@@ -58,7 +58,7 @@ You can then type **add** (**a** for short) to add a new alias, **list** (**l** 
 ![Malias-Menu](https://user-images.githubusercontent.com/53110319/166229747-45705537-e3ac-413c-9d3d-ba3d0a541a83.png)
 <br>
 <br>
-*Alternatively, you can type the following commands to launch the associate function directly :*
+*Alternatively, you can type the following commands to launch the associated function directly :*
 <br>
 `malias --add` or `malias -a` to add an alias.
 <br>
@@ -71,7 +71,7 @@ You can then type **add** (**a** for short) to add a new alias, **list** (**l** 
 <br>
 To add an alias, type its name and then the command you want to associate it with.
 <br>
-The new alias can directly be used right away.
+The new alias can then be used right away.
 <br>
 Each step is automated and secured for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...).
 <br>
@@ -85,7 +85,7 @@ The "list" function is self explanatory, it basically prints your current aliase
 <br>
 To delete an alias, type the number associated to the alias you want to delete.
 <br>
-The deleted alias will be gone right away.
+The deleted alias will then be gone right away.
 <br>
 Once again, each step is automated and secured for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...)
 <br>
