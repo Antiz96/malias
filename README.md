@@ -59,9 +59,13 @@ You can then type **add** (**a** for short) to add a new alias, **list** (**l** 
 <br>
 <br>
 *Alternatively, you can type the following commands to launch the associate function directly :*
+<br>
 `malias --add` or `malias -a` to add an alias.
+<br>
 `malias --list` or `malias -l` to list your current aliases.
+<br>
 `malias --delete` or `malias -d` to delete an alias.
+<br>
 `malias --help` or `malias -h` to display the help.
 <br>
 <br>
@@ -69,13 +73,13 @@ To add an alias, type its name and then the command you want to associate it wit
 <br>
 The new alias can directly be used right away.
 <br>
-Each step is automated and secure for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...).
+Each step is automated and secured for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...).
 <br>
 Example below with the alias **list='ls -ltr'**, where **list** is the alias name and **ls -ltr** the command :
 ![Malias-Add](https://user-images.githubusercontent.com/53110319/166231323-42a1a89d-3bc5-4cd3-93a0-abe16b5c1def.png)
 <br>
 <br>
-The "list" function is pretty self explanatory, it basically prints your current aliases like so :
+The "list" function is self explanatory, it basically prints your current aliases like so :
 ![Malias-List](https://user-images.githubusercontent.com/53110319/166232292-aa5b2d15-683d-4535-ab07-576bfb6c05cf.png)
 <br>
 <br>
@@ -83,9 +87,9 @@ To delete an alias, type the number associated to the alias you want to delete.
 <br>
 The deleted alias will be gone right away.
 <br>
-Once again, each step is automated and secure for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...)
+Once again, each step is automated and secured for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...)
 <br>
-Example below with the 30th alias (list='ls -ltr'), previously added in the "add" function example :
+Example below with the 31st alias (list='ls -ltr'), previously added in the "add" function example :
 ![Malias-Delete](https://user-images.githubusercontent.com/53110319/166232379-be5b619e-2d8f-4d09-8f71-c87c9a43e550.png)
 
 
