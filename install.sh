@@ -1,13 +1,12 @@
 #!/bin/bash
 
-pkgname="Malias"
-_pkgname="malias"
+pkgname="malias"
 url="https://github.com/Antiz96/Malias"
 latest_release=$(curl -s https://raw.githubusercontent.com/Antiz96/Malias/main/latest_release.txt)
 
 checksum=$(curl -Ls "$url"/releases/download/v"$latest_release"/sha256sum.txt)
-installed=$(command -v "$_pkgname")
-current_version=$("$_pkgname" -v 2>/dev/null)
+installed=$(command -v "$pkgname")
+current_version=$("$pkgname" -v 2>/dev/null)
 
 package() {
 	curl -Ls "$url"/archive/v"$latest_release".tar.gz -o /tmp/"$pkgname"-"$latest_release".tar.gz || { echo -e >&2 "An error occured during the download of the $pkgname's archive\n\nPlease, verify that you have a working internet connexion and curl installed on your machine\nIf the problem persists anyway, you can open an issue at $url/issues" ; exit 1; }
@@ -21,11 +20,11 @@ package() {
 	fi
 
 	tar -xf /tmp/"$pkgname"-"$latest_release".tar.gz -C /tmp/ || exit 1
-	chmod +x /tmp/"$pkgname"-"$latest_release"/src/bin/"$_pkgname".sh || exit 1
-	gzip /tmp/"$pkgname"-"$latest_release"/src/man/"$_pkgname".1 || exit 1
-	sudo cp -f /tmp/"$pkgname"-"$latest_release"/src/bin/"$_pkgname".sh /usr/local/bin/"$_pkgname" || exit 1
+	chmod +x /tmp/"$pkgname"-"$latest_release"/src/bin/"$pkgname".sh || exit 1
+	gzip /tmp/"$pkgname"-"$latest_release"/src/man/"$pkgname".1 || exit 1
+	sudo cp -f /tmp/"$pkgname"-"$latest_release"/src/bin/"$pkgname".sh /usr/local/bin/"$pkgname" || exit 1
 	sudo mkdir -p /usr/local/share/man/man1 || exit 1
-	sudo cp -f /tmp/"$pkgname"-"$latest_release"/src/man/"$_pkgname".1.gz /usr/local/share/man/man1/ || exit 1
+	sudo cp -f /tmp/"$pkgname"-"$latest_release"/src/man/"$pkgname".1.gz /usr/local/share/man/man1/ || exit 1
 	rm -rf /tmp/"$pkgname"-"$latest_release" /tmp/"$pkgname"-"$latest_release".tar.gz || exit 1
 }
 
