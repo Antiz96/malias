@@ -12,12 +12,12 @@ current_version=$("$_pkgname" -v 2>/dev/null)
 package() {
 	curl -Ls "$url"/archive/v"$latest_release".tar.gz -o /tmp/"$pkgname"-"$latest_release".tar.gz
 
-	if ! echo "$checksum $pkgname-$latest_release.tar.gz" | sha256sum -c --status -; then
-		echo -e >&2 "$pkgname's archive integrity check failed\nAborting\n\nPlease, verify that you have a working internet connexion and curl installed on your machine\nIf the problem persists anyway, you can open an issue at $url/issues"
+	if ! echo "$checksum /tmp/$pkgname-$latest_release.tar.gz" | sha256sum -c --status -; then
+		echo -e >&2 "\n$pkgname's archive integrity check failed\nAborting\n\nPlease, verify that you have a working internet connexion and curl installed on your machine\nIf the problem persists anyway, you can open an issue at $url/issues"
 		rm -f /tmp/"$pkgname"-"$latest_release".tar.gz
 		exit 1
 	else
-		echo -e "$pkgname's archive integrity validated\nProceeding to installation..."
+		echo -e "\n$pkgname's archive integrity validated\nProceeding to installation..."
 	fi
 
 	tar -xf /tmp/"$pkgname"-"$latest_release".tar.gz
