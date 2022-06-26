@@ -35,7 +35,7 @@ if [ -z "$installed" ]; then
 	case "$answer" in
 		[Yy]|"")
 			package || { echo -e >&2 "An error occured during the installation\n\nPlease, verify that you have a working internet connexion and curl installed on your machine\nIf the problem persists anyway, you can open an issue at $url/issues" ; exit 1; }
-			echo -e "\n$pkgname has been successfully installed\nPlease, check $url for more information\n\nThanks for downloading !"
+			echo -e "\n$pkgname has been successfully installed\nPlease, visit $url for more information\n\nThanks for downloading !"
 			exit 0
 		;;
 		*)
@@ -48,7 +48,7 @@ elif [ "$current_version" != "$latest_release" ]; then
 	case "$answer" in
 		[Yy]|"")
 			package || { echo -e >&2 "An error occured during the installation\n\nPlease, verify that you have a working internet connexion and curl installed on your machine\nIf the problem persists anyway, you can open an issue at $url/issues" ; exit 1; }
-			echo -e "\n$pkgname has been successfully updated to version $latest_release\nPlease, check $url for more information"
+			echo -e "\n$pkgname has been successfully updated to version $latest_release\nPlease, visit $url for more information"
 			exit 0
 		;;
 		*)
@@ -61,7 +61,7 @@ else
 	case "$answer" in
 		[Yy]|"")
 			package || { echo -e >&2 "An error occured during the installation\n\nPlease, verify that you have a working internet connexion and curl installed on your machine\nIf you do and the problem persists, you can open an issue at $url/issues" ; exit 1; }
-			echo -e "\n$pkgname has been successfully reinstalled\nPlease, check $url for more information"
+			echo -e "\n$pkgname has been successfully reinstalled\nPlease, visit $url for more information"
 			exit 0
 		;;
 		*)
