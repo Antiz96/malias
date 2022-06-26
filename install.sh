@@ -7,7 +7,7 @@ latest_release=$(curl -s https://raw.githubusercontent.com/Antiz96/Malias/main/l
 
 checksum=$(curl -Ls "$url"/releases/download/v"$latest_release"/sha256sum.txt)
 installed=$(command -v "$_pkgname")
-current_version=$("$_pkgname" -v)
+current_version=$("$_pkgname" -v 2>/dev/null)
 
 package() {
 	curl -Ls "$url"/archive/v"$latest_release".tar.gz -o /tmp/"$pkgname"-"$latest_release".tar.gz
