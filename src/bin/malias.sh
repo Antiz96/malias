@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Current version
+version="1.2.0"
+
 #Replace the $1 var by "option" just to make the script more readable/less complex
 option="$1"
 
@@ -175,6 +178,11 @@ case "$option" in
 			echo  "The \"delete\" operation has been aborted"
 		exit 1
 		fi
+	;;
+	#If the -v (or --version) option is passed to the "malias" command, print the current version
+	-v|--version)
+		echo "$version"
+		exit 0
 	;;
 	#If the -h (or --help) option is passed to the "malias" command, print the help
 	-h|--help)
