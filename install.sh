@@ -20,7 +20,7 @@ package() {
 		echo -e "\n$pkgname's archive integrity validated\nProceeding to installation..."
 	fi
 
-	tar -xf /tmp/"$pkgname"-"$latest_release".tar.gz
+	tar -xf /tmp/"$pkgname"-"$latest_release".tar.gz -C /tmp/
 	chmod +x /tmp/"$pkgname"-"$latest_release"/src/bin/"$_pkgname".sh
 	gzip /tmp/"$pkgname"-"$latest_release"/src/man/"$_pkgname".1
 	sudo cp -f /tmp/"$pkgname"-"$latest_release"/src/bin/"$_pkgname".sh /usr/local/bin/"$_pkgname"
