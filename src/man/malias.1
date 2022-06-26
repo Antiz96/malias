@@ -1,0 +1,103 @@
+.TH "MALIAS" "1" "May 2022" "Malias v1" "Malias Manual"
+
+.SH NAME
+malias \- An alias manager that allows you to easily add, delete or list your bash aliases.
+
+.SH SYNOPSIS
+.B malias
+[\fI\,OPTION\/\fR]
+
+.SH DESCRIPTION
+An alias manager that allows you to easily add, delete or list your bash aliases in your ".bashrc" file by automating and securing every steps for you.
+
+.SH OPTIONS
+.TP
+.B \-m, \-\-menu
+Open the main menu which allows you to choose what operation to perform.
+.br
+.RB "You can either type " "add " "(" "a " "for short) to add a new alias, " "list " "(" "l " "for short) to list your current aliases, " "delete " "(" "d " "for short) to delete an alias, " "help " "(" "h " "for short) to print this man page or " "quit " "(" "q " "for short) to quit Malias."
+.br
+This is the default if no option is passed.
+
+.TP
+.B \-a, \-\-add
+Launch the "add" operation which allows you to add a new alias.
+
+.TP
+.B \-l, \-\-list
+Launch the "list" operation which prints the list of your current aliases.
+
+.TP
+.B \-d, \-\-delete
+Launch the "delete" operation which allows you to delete an alias.
+
+.TP
+.B \-v, \-\-version
+Print the current version.
+
+.TP
+.B \-h, \-\-help
+Print the help.
+
+.SH EXIT STATUS
+.TP
+.B 0
+if OK
+
+.TP
+.B 1
+if problems (user didn't gave confirmation to proceed with the adding/deletion, a problem happened during the backup/restore process of the .bashrc file, the added alias is incorrect, ...)
+
+.SH USAGE
+.TP
+.B The main menu
+.RB "Type the " "malias " "command to open the main menu that will print every possible operations (add, list, delete, help, quit) followed by a short description."
+.br
+From there, just type the name (or simply the first letter) of the operation you want to perform.
+
+.TP
+.B The add operation
+.RB "The add operation allows you to add a new alias. It will ask for the " "alias name " "and the " "command " "you want to associate your alias with."
+.br
+.RB "For instance, in the alias " "ll='ls -l'" ", " "ll " "would be the " "alias name " "and " "ls -l " "would be the " "command".
+.br
+After filling in the requested information and giving the confirmation to proceed, the new alias will automatically be added to your .bashrc file (after being backuped).
+.br
+Malias will then look for potential errors and apply the new alias or restore the .bashrc's backup (in case there's errors).
+
+.TP
+.B The list operation
+The list operation prints the list of your current aliases.
+
+.TP
+.B The delete operation
+.RB "The delete operation allows you to delete an alias. It will print the list of your current aliases with a " "unique number " "in front of each aliases (like the " "list " "function does)."
+.br
+You must then type the number associated to the alias you want to delete and give the confirmation to proceed.
+.br
+Once done, the selected alias will automatically be removed from your .bashrc file (after being backuped).
+.br
+Malias will then look for potential errors and apply the deletion or restore the .bashrc's backup (in case there's errors).
+
+.SH SEE ALSO
+.BR clear (1),
+.BR cp (1),
+.BR mv (1),
+.BR rm (1),
+.BR echo (1),
+.BR printf (1),
+.BR grep (1),
+.BR sed (1),
+.BR cut (1),
+.BR date (1),
+.BR bash (1),
+.BR man (1),
+.BR col (1)
+.br
+The documentation is also available on the GitHub page https://github.com/Antiz96/malias
+
+.SH BUGS
+Please report bugs to the GitHub page https://github.com/Antiz96/malias
+
+.SH AUTHOR
+Robin Candau <robincandau@protonmail.com>
