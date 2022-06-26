@@ -53,8 +53,7 @@ case "$option" in
 			;;
 			#If any other strings or characters are typed, print an error and quit Malias
 			*)
-				echo "malias : invalid option -- '$operation'"
-				echo "Try 'malias --help' for more information."
+				echo -e >&2 "malias : invalid option -- '$operation'\nTry 'malias --help' for more information."
 				exit 1
 			;;
 		esac
@@ -77,7 +76,7 @@ case "$option" in
 				echo -e "\nAdding the new alias..."
 			;;
 			*)
-				echo -e "\nAborting"
+				echo -e >&2 "\nAborting"
 				exit 1
 			;;
 	esac
@@ -96,10 +95,10 @@ case "$option" in
 		exec bash
 	#If there's an error, inform the user and restore the backup of the .bashrc file
 	else
-		echo -e "An error has occurred"
-		echo -e "\nPlease verify that your alias is correct and that it respects the following format : alias_name='command'"
-		echo -e "Also, be aware that your alias name cannot contain space(s)\nHowever, it can contain \"-\" (score) or \"_\" (underscore)\n"
-		mv -f ~/.bashrc-bck_malias-add-"$alias_name"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || echo -e "WARNING : A problem occurred when restoring the backup of your ~/.bashrc file\nPlease, check for potential errors in it"
+		echo >&2 "An error has occurred"
+		echo -e >&2 "\nPlease verify that your alias is correct and that it respects the following format : alias_name='command'"
+		echo -e >&2 "Also, be aware that your alias name cannot contain space(s)\nHowever, it can contain \"-\" (score) or \"_\" (underscore)\n"
+		mv -f ~/.bashrc-bck_malias-add-"$alias_name"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || echo -e >&2 "WARNING : A problem occurred when restoring the backup of your ~/.bashrc file\nPlease, check for potential errors in it"
 		exit 1
 	fi
 	;;
@@ -148,7 +147,7 @@ case "$option" in
 					echo -e "\nDeleting the alias..."
 				;;
 				*)
-					echo -e "\nAborting"
+					echo -e >&2 "\nAborting"
 					exit 1
 				;;
 			esac
@@ -168,14 +167,14 @@ case "$option" in
 	
 			#If there's an error, inform the user and restore the backup file
 			else
-				echo "An error has occurred"
-				mv -f ~/.bashrc-bck_malias-delete-"$alias_name"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || echo -e "WARNING : A problem occurred when restoring the backup of your ~/.bashrc file\nPlease, check for potential errors in it"
+				echo >&2 "An error has occurred"
+				mv -f ~/.bashrc-bck_malias-delete-"$alias_name"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || echo -e >&2 "WARNING : A problem occurred when restoring the backup of your ~/.bashrc file\nPlease, check for potential errors in it"
 				exit 1
 			fi
 		#If the number selected by the user is wrong, print an error and quit Malias
 		else
-			echo -e "\nError : Invalid input\nPlease, make sure you typed the correct number associated to the alias you want to delete\n"
-			echo  "The \"delete\" operation has been aborted"
+			echo -e >&2 "\nError : Invalid input\nPlease, make sure you typed the correct number associated to the alias you want to delete\n"
+			echo >&2 "The \"delete\" operation has been aborted"
 		exit 1
 		fi
 	;;
@@ -191,8 +190,7 @@ case "$option" in
 	;;
 	#If any other strings or characters are typed, print an error and quit Malias
 	*)
-		echo "malias : invalid option -- '$option'"
-		echo "Try 'malias --help' for more information."
+		echo -e >&2 "malias : invalid option -- '$option'\nTry 'malias --help' for more information."
 		exit 1
 	;;
 esac
