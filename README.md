@@ -27,21 +27,21 @@ Arch (or Arch based distro) users can install the [malias](https://aur.archlinux
 
 Launch the following command in your terminal to execute the install script (requires "curl" and "sudo") :
 ```
-curl -s https://raw.githubusercontent.com/Antiz96/Malias/main/install.sh | bash
+curl -s https://raw.githubusercontent.com/Antiz96/malias/main/install.sh | bash
 ```
 
 #### Update
 
 Simply re-execute the install script (requires "curl" and "sudo") :
 ```
-curl -s https://raw.githubusercontent.com/Antiz96/Malias/main/install.sh | bash
+curl -s https://raw.githubusercontent.com/Antiz96/malias/main/install.sh | bash
 ```
 
 #### Uninstalling
 
 Launch the following command in your terminal to execute the uninstall script :
 ```
-curl -s https://raw.githubusercontent.com/Antiz96/Malias/main/uninstall.sh | bash
+curl -s https://raw.githubusercontent.com/Antiz96/malias/main/uninstall.sh | bash
 ```
 
 ## Usage
