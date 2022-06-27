@@ -1,8 +1,8 @@
 #!/bin/bash
 
 pkgname="malias"
-url="https://github.com/Antiz96/Malias"
-latest_release=$(curl -s https://raw.githubusercontent.com/Antiz96/Malias/main/latest_release.txt)
+url="https://github.com/Antiz96/malias"
+latest_release=$(curl -s https://raw.githubusercontent.com/Antiz96/malias/main/latest_release.txt)
 
 checksum=$(curl -Ls "$url"/releases/download/v"$latest_release"/sha256sum.txt)
 installed=$(command -v "$pkgname")
