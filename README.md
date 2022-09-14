@@ -112,33 +112,33 @@ Open the main menu which allows you to choose what operation to perform.
 You  can  either type `add` (`a` for short) to add a new alias, `list` (`l` for short) to list your current aliases, `delete` (`d` for short) to delete an alias, `help` (`h` for short) to print this man page or `quit` (`q` for short) to quit Malias.  
 This is the default if no option is passed.  
 
-### -a, --add
+#### -a, --add
 
 Launch the `add` operation which allows you to add a new alias.  
 
-### -l, --list
+#### -l, --list
 
 Launch the `list` operation which prints the list of your current aliases.  
 
-### -d, --delete
+#### -d, --delete
 
 Launch the `delete` operation which allows you to delete an alias.  
 
-### -v, --version
+#### -v, --version
 
 Print the current version.
 
-### -h, --help
+#### -h, --help
 
 Print the help.
 
-## EXIT STATUS 
+### EXIT STATUS 
 
-### 0 
+#### 0 
 
 if OK
 
-### 1
+#### 1
 
 if problems (user didn't gave confirmation to proceed with the adding/deletion, a problem happened during the backup/restore process of the .bashrc file, the added alias is incorrect, ...)
 
