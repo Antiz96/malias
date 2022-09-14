@@ -87,7 +87,7 @@ The `list` function is self explanatory, it basically prints your current aliase
   
 To delete an alias, type the number associated to the alias you want to delete.  
 The deleted alias will then be gone right away.  
-Once again, each step is automated and secured for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...)/  
+Once again, each step is automated and secured for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...)    
 Example below with the 31st alias (`list='ls -ltr'`), previously added in the "add" function example :
 ![Malias-Delete](https://user-images.githubusercontent.com/53110319/166232379-be5b619e-2d8f-4d09-8f71-c87c9a43e550.png)
 
