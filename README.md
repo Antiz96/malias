@@ -7,7 +7,6 @@ An alias manager that allows you to easily add, delete or list your bash aliases
 * [Installation](#installation)
 * [Usage](#usage)
 * [Documentation](#documentation)
-* [Tips and tricks](#tips-and-tricks)
 * [Contributing](#contributing)
 
 ## Description
@@ -50,11 +49,11 @@ For instance, in the alias `ll='ls -l'`, **ll** would be the **alias name** and 
 After filling in the requested information and giving the confirmation to proceed, the new alias will automatically be added to your .bashrc file (after being backuped).  
 Malias will then look for potential errors and apply the new alias or restore the .bashrc's backup (in case there's errors).
 
-## The list operation
+### The list operation
   
 The `list` operation prints the list of your current aliases.  
 
-## The delete operation  
+### The delete operation  
 
 The `delete` operation allows you to delete an alias.   
 It will print the list of your current aliases with a **unique number** in front of each aliases (like the `list` function does).  
@@ -94,8 +93,54 @@ Example below with the 31st alias (`list='ls -ltr'`), previously added in the "a
 
 ## Documentation
 
+See the documentation below:  
+  
 *The documentation is also available as a man page and with the "--help" function.*  
 *Run `man malias` or `malias --help` after you've installed the **malias** package.*  
+  
+### SYNOPSIS
+malias [OPTION]
+
+### DESCRIPTION
+An alias manager that allows you to easily add, delete or list your bash aliases in your ".bashrc" file by automating and securing every steps for you.
+
+### OPTIONS
+
+#### -m, --menu
+
+Open the main menu which allows you to choose what operation to perform.  
+You  can  either type `add` (`a` for short) to add a new alias, `list` (`l` for short) to list your current aliases, `delete` (`d` for short) to delete an alias, `help` (`h` for short) to print this man page or `quit` (`q` for short) to quit Malias.  
+This is the default if no option is passed.  
+
+### -a, --add
+
+Launch the `add` operation which allows you to add a new alias.  
+
+### -l, --list
+
+Launch the `list` operation which prints the list of your current aliases.  
+
+### -d, --delete
+
+Launch the `delete` operation which allows you to delete an alias.  
+
+### -v, --version
+
+Print the current version.
+
+### -h, --help
+
+Print the help.
+
+## EXIT STATUS 
+
+### 0 
+
+if OK
+
+### 1
+
+if problems (user didn't gave confirmation to proceed with the adding/deletion, a problem happened during the backup/restore process of the .bashrc file, the added alias is incorrect, ...)
 
 ## Contributing
 
