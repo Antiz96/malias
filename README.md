@@ -16,7 +16,7 @@ An alias manager that allows you to easily add, delete or list your bash aliases
 
 ## Dependencies
 
-The [make](https://www.gnu.org/software/make/) package is necessary to install/uninstall `malias` [from source](#from-source). Install it via your package manager if needed.
+The [make](https://www.gnu.org/software/make/) package is necessary to install/uninstall `malias`, install it via your package manager if needed.
 
 ## Installation
 
