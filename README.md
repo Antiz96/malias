@@ -4,6 +4,7 @@ An alias manager that allows you to easily add, delete or list your bash aliases
 
 ## Table of contents
 * [Description](#description)
+* [Dependencies](#dependencies)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Documentation](#documentation)
@@ -13,6 +14,10 @@ An alias manager that allows you to easily add, delete or list your bash aliases
 
 An alias manager that allows you to easily add, delete or list your bash aliases in your ".bashrc" file by automating and securing every steps for you.
 
+## Dependencies
+
+The [make](https://www.gnu.org/software/make/) package is necessary to install/uninstall `malias` [from source](#from-source). Install it via your package manager if needed.
+
 ## Installation
 
 ### AUR
@@ -20,8 +25,6 @@ An alias manager that allows you to easily add, delete or list your bash aliases
 Arch (or Arch based distro) users can install the [malias](https://aur.archlinux.org/packages/malias "malias AUR package") AUR package.
 
 ### From Source
-
-The [make](https://www.gnu.org/software/make/) package is necessary to install/uninstall `malias` [from source](#from-source).
 
 Download the archive of the [latest stable release](https://github.com/Antiz96/malias/releases/latest) and extract it.  
 *Alternatively, you can clone this repository via `git`.*  
