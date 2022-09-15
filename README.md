@@ -21,6 +21,8 @@ Arch (or Arch based distro) users can install the [malias](https://aur.archlinux
 
 ### From Source
 
+The [make](https://www.gnu.org/software/make/) package is necessary to install/uninstall `malias` [from source](#from-source).
+
 Download the archive of the [latest stable release](https://github.com/Antiz96/malias/releases/latest) and extract it.  
 *Alternatively, you can clone this repository via `git`.*  
   
