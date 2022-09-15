@@ -99,9 +99,11 @@ See the documentation below:
 *Run `man malias` or `malias --help` after you've installed the **malias** package.*  
   
 ### SYNOPSIS
+
 malias [OPTION]
 
 ### DESCRIPTION
+
 An alias manager that allows you to easily add, delete or list your bash aliases in your ".bashrc" file by automating and securing every steps for you.
 
 ### OPTIONS
