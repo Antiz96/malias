@@ -151,5 +151,5 @@ if problems (user didn't gave confirmation to proceed with the adding/deletion, 
 
 ## Contributing
 
-You can raise your issues, feedbacks and ideas in the [issues tab](https://github.com/Antiz96/malias/issues).  
+You can raise your issues, feedbacks and suggestions in the [issues tab](https://github.com/Antiz96/malias/issues).  
 [Pull requests](https://github.com/Antiz96/malias/pulls) are welcomed as well !
