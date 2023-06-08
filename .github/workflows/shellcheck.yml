@@ -1,0 +1,20 @@
+name: Shellcheck
+on: pull_request
+
+jobs:
+  run_shellcheck:
+    runs-on: ubuntu-latest
+
+    container:
+      image: docker.io/library/alpine:latest
+      options: --privileged
+
+    steps:
+      - name: Update the container
+        run: apk update && apk upgrade
+
+      - name: Install shellcheck
+        run: apk add shellcheck
+
+      - name: Run shellcheck
+        run: find . -name '*.sh' -exec shellcheck --color=always {} +
