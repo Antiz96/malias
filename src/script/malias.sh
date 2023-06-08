@@ -1,11 +1,15 @@
 #!/bin/bash
 
-#Variables definition
+# malias: An alias manager that allows you to easily add, delete or list your bash aliases in your ".bashrc" file by automating and securing every steps for you.
+# https://github.com/Antiz96/malias
+# Licensed under the GPL-3.0 license
+
+# Variables definition
 name=malias
 version="1.2.1"
 argument="${1}"
 
-#Definition of the help function: Print the help message
+# Definition of the help function: Print the help message
 help() {
 	cat <<EOF
 ${name} v${version}
@@ -24,18 +28,18 @@ For more information, see the ${name}(1) man page
 EOF
 }
 
-#Definition of the version function: Print the current version
+# Definition of the version function: Print the current version
 version() {
 	echo "${name} ${version}"
 }
 
-#Definition of the invalid_argument function: Print an error message, ask the user to check the help and exit
+# Definition of the invalid_argument function: Print an error message, ask the user to check the help and exit
 invalid_argument() {
 	echo -e >&2 "${name}: invalid argument -- '${operation}'\nTry '${name} --help' for more information."
 	exit 1
 }
 
-#Definition of the menu function: Print a menu that lists possible operations to choose from
+# Definition of the menu function: Print a menu that lists possible operations to choose from
 menu() {
 	clear >"$(tty)"
 
@@ -79,7 +83,7 @@ EOF
 	clear >"$(tty)"
 }
 
-#Definition of the add function: Add a new alias
+# Definition of the add function: Add a new alias
 add() {
 	read -rp "Please, type the alias name you want to add: " alias_name
 	read -rp "Please, type the command you want to associate the alias with: " alias_command
@@ -114,7 +118,7 @@ add() {
 	fi
 }
 
-#Definition of the list function: Print the list of current aliases
+# Definition of the list function: Print the list of current aliases
 list() {
 	alias_list=$(grep -w "^alias" ~/.bashrc | awk '{$1=""}1' | sed "s/ //")
 		
@@ -126,7 +130,7 @@ list() {
 	done < <(printf '%s\n' "${alias_list}")
 }
 
-#Definition of the delete function: Delete an alias (meant to be used in combination with the list function)
+# Definition of the delete function: Delete an alias (meant to be used in combination with the list function)
 delete() {
 	list
 
@@ -170,7 +174,7 @@ delete() {
 	fi
 }
 
-#Execute the different functions depending on the selected argument
+# Execute the different functions depending on the selected argument
 case "${argument}" in
 	-m|--menu|"")
 		menu
