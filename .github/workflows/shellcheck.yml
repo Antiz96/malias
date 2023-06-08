@@ -13,11 +13,11 @@ jobs:
       - name: Update the container
         run: apk update && apk upgrade
 
-      - name: Install shellcheck
-        run: apk add shellcheck
+      - name: Install shellcheck & git
+        run: apk add shellcheck git
 
       - name: Clone the repo and switch on current branch
-        run: pwd ; ls src/script
+        run: git clone https://github.com/${{ GITHUB_REPOSITORY }} && git checkout ${{ GITHUB_REF_NAME }}
 
       - name: Run shellcheck
         run: find . -name '*.sh' -exec shellcheck --color=always {} +
