@@ -98,15 +98,17 @@ Example below with the 31st alias (`list='ls -ltr'`), previously added in the "a
 
 ## Documentation
 
+```
 Options:  
--m, --menu     Print a menu that lists possible operations to choose from (default operation)  
--a, --add      Add a new alias  
--l, --list     List all current aliases  
--d, --delete   Delete an existing alias  
--h, --help     Display this message and exit  
--V, --version  Display version information and exit  
+  -m, --menu     Print a menu that lists possible operations to choose from (default operation)  
+  -a, --add      Add a new alias  
+  -l, --list     List all current aliases  
+  -d, --delete   Delete an existing alias  
+  -h, --help     Display this message and exit  
+  -V, --version  Display version information and exit  
   
 For more information, see the malias(1) man page
+```
 
 ## Contributing
 
