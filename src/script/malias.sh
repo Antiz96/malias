@@ -3,6 +3,7 @@
 #Variables definition
 version="1.2.1"
 argument="${1}"
+bonjour="hello"
 
 #Definition of the version function: Print the current version
 version() {
