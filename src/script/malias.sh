@@ -6,7 +6,7 @@
 
 # Variables definition
 name=malias
-version="1.2.1"
+version="1.2.2"
 argument="${1}"
 
 # Definition of the help function: Print the help message
