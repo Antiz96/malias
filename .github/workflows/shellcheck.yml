@@ -20,7 +20,7 @@ jobs:
         run: apk add shellcheck git
 
       - name: Clone the repo, `cd` into it and switch on current branch
-        run: git clone $GITHUB_SERVER_URL/$GITHUB_REPOSITORY && cd $REPO_NAME && git checkout $GITHUB_HEAD_REF
+        run: git clone $GITHUB_SERVER_URL/$GITHUB_REPOSITORY && cd $REPO_NAME #&& git checkout $GITHUB_HEAD_REF
 
       - name: Run shellcheck
         run: find . -name '*.sh' -exec shellcheck --color=always {} +
