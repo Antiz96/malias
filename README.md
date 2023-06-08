@@ -4,7 +4,6 @@ An alias manager that allows you to easily add, delete or list your bash aliases
 
 ## Table of contents
 * [Description](#description)
-* [Dependencies](#dependencies)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Documentation](#documentation)
@@ -13,10 +12,6 @@ An alias manager that allows you to easily add, delete or list your bash aliases
 ## Description
 
 An alias manager that allows you to easily add, delete or list your bash aliases in your ".bashrc" file by automating and securing every steps for you.
-
-## Dependencies
-
-The [make](https://www.gnu.org/software/make/) package is necessary to install/uninstall `malias`, install it via your package manager if needed.
 
 ## Installation
 
