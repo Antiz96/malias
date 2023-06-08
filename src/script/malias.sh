@@ -102,7 +102,13 @@ add() {
 		;;
 	esac
 
-	cp -p ~/.bashrc ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo -e "\nBackup of the .bashrc file created" || { echo -e >&2 "ERROR: An error occured when creating the backup of the .bashrc file"; exit 3; }
+	if cp -p ~/.bashrc ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")"; then
+		echo -e "\nBackup of the .bashrc file created"
+	else
+		echo -e >&2 "ERROR: An error occured when creating the backup of the .bashrc file"
+		exit 3
+	fi
+
 	echo "alias ${new_alias}" >> ~/.bashrc
 
 	source_error=$(bash -x ~/.bashrc 2>/dev/null; echo $?)
@@ -113,7 +119,12 @@ add() {
 		exec bash
 	else
 		echo -e >&2 "\nERROR: An error occured when adding the alias\nPlease verify that you typed the alias correctly\nAlso, be aware that the alias name cannot contain space(s). However, it can contain \"-\" (hyphen) or \"_\" (underscore)"
-		mv -f ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || { echo -e >&2 "\nERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"; exit 3; }
+		if mv -f ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc; then
+			echo "Backup of the .bashrc file restored"
+		else
+			echo -e >&2 "\nERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
+			exit 3
+		fi
 		exit 4
 	fi
 }
@@ -154,7 +165,12 @@ delete() {
 			;;
 		esac
 
-		cp -p ~/.bashrc ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo -e "\nBackup of the .bashrc file created" || { echo -e >&2 "ERROR: An error occured when creating the backup of the .bashrc file"; exit 3; }
+		if cp -p ~/.bashrc ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")"; then
+			echo -e "\nBackup of the .bashrc file created"
+		else
+			echo -e >&2 "ERROR: An error occured when creating the backup of the .bashrc file"
+			exit 3
+		fi
 
 		sed -i "/^alias ${alias_delete}$/d" ~/.bashrc
 
@@ -166,7 +182,12 @@ delete() {
 			exec bash
 		else
 			echo -e >&2 "\nERROR: An error occured when deleting the alias"
-			mv -f ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || { echo -e >&2 "\nERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"; exit 3; }
+			if mv -f ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc; then
+				echo "Backup of the .bashrc file restored"
+			else
+				echo -e >&2 "\nERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
+				exit 3
+			fi
 			exit 4
 		fi
 	else
