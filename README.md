@@ -101,9 +101,16 @@ Options:
   -d, --delete   Delete an existing alias  
   -h, --help     Display this message and exit  
   -V, --version  Display version information and exit  
+
+Exit Codes:
+  0  OK
+  1  Invalid argument/option
+  2  User didn't gave the confirmation to proceed
+  3  An error occured when creating/restoring the backup of the .bashrc file
+  4  An error occured when adding/removing the alias
+```
   
 For more information, see the malias(1) man page
-```
 
 ## Contributing
 

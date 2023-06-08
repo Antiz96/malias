@@ -39,14 +39,26 @@ Print the current version.
 .B \-h, \-\-help
 Print the help.
 
-.SH EXIT STATUS
+.SH EXIT CODES
 .TP
 .B 0
-if OK
+OK
 
 .TP
 .B 1
-if problems (user didn't gave confirmation to proceed with the adding/deletion, a problem happened during the backup/restore process of the .bashrc file, the added alias is incorrect, ...)
+Invalid argument/option
+
+.TP
+.B 2
+User didn't gave the confirmation to proceed
+
+.TP
+.B 3
+An error occured when creating/restoring the backup of the .bashrc file
+
+.TP
+.B 4
+An error occured when adding/removing the alias
 
 .SH USAGE
 .TP
