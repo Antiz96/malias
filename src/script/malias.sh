@@ -1,37 +1,55 @@
 #!/bin/bash
 
 #Variables definition
+name=malias
 version="1.2.1"
 argument="${1}"
 
-#Definition of the version function: Print the current version
-version() {
-	echo "${version}"
-}
-
 #Definition of the help function: Print the help message
 help() {
-	man malias | col
+	cat <<EOF
+${name} v${version}
+
+An alias manager that allows you to easily add, delete or list your bash aliases in your ".bashrc" file by automating and securing every steps for you.
+
+Options:
+  -m, --menu     Print a menu that lists possible operations to choose from (default operation)
+  -a, --add      Add a new alias
+  -l, --list     List all current aliases
+  -d, --delete   Delete an existing alias
+  -h, --help     Display this message and exit
+  -V, --version  Display version information and exit
+
+For more information, see the ${name}(1) man page
+EOF
+}
+
+#Definition of the version function: Print the current version
+version() {
+	echo "${name} ${version}"
 }
 
 #Definition of the invalid_argument function: Print an error message, ask the user to check the help and exit
 invalid_argument() {
-	echo -e >&2 "malias : invalid argument -- '${operation}'\nTry 'malias --help' for more information."
+	echo -e >&2 "${name}: invalid argument -- '${operation}'\nTry '${name} --help' for more information."
 	exit 1
 }
 
-#Definition of the menu function: Print a menu that lists possible operations for the user to choose from
+#Definition of the menu function: Print a menu that lists possible operations to choose from
 menu() {
 	clear >"$(tty)"
 
-	echo "Welcome to Malias!"
-	echo
-	echo "Please, type one of the following operations:"
-	echo "add           (Add a new alias)"
-	echo "list          (List all your current aliases)"
-	echo "delete        (Delete an existing alias)"
-	echo "help          (Print the help)"
-	echo "quit          (Quit Malias)"
+	cat <<EOF
+Welcome to Malias!
+
+Please, type one of the following operations:
+
+add     (Add a new alias)
+list    (List all current aliases)
+delete  (Delete an existing alias)
+help    (Print the help)
+quit    (Quit Malias)
+EOF
 
 	read -rp $'\nWhat operation do you want to do? ' operation
 	operation=$(echo "${operation}" | awk '{print tolower($0)}')
@@ -64,7 +82,7 @@ menu() {
 #Definition of the add function: Add a new alias
 add() {
 	read -rp "Please, type the alias name you want to add: " alias_name
-	read -rp "Please, type the command you want to associate your alias with: " alias_command
+	read -rp "Please, type the command you want to associate the alias with: " alias_command
 
 	new_alias="${alias_name}"=\'"${alias_command}"\'
 	echo -e "\nThe following alias will be added: ${new_alias}"
@@ -80,18 +98,18 @@ add() {
 		;;
 	esac
 
-	cp -p ~/.bashrc ~/.bashrc-bck_malias-add-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo -e "\nBackup of the .bashrc file created" || exit 1
+	cp -p ~/.bashrc ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo -e "\nBackup of the .bashrc file created" || exit 1
 	echo "alias ${new_alias}" >> ~/.bashrc
 
 	source_error=$(bash -x ~/.bashrc 2>/dev/null; echo $?)
 
 	if [ "${source_error}" -eq 0 ]; then
 		echo "Alias ${new_alias} successfully added"
-		rm -f ~/.bashrc-bck_malias-add-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo "Backup of the .bashrc file deleted"
+		rm -f ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo "Backup of the .bashrc file deleted"
 		exec bash
 	else
-		echo -e >&2 "\nERROR: An error occured when applying your alias\nPlease verify that you typed your alias correctly\nAlso, be aware that your alias name cannot contain space(s). However, it can contain \"-\" (hyphen) or \"_\" (underscore)"
-		mv -f ~/.bashrc-bck_malias-add-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || echo -e >&2 "\nERROR: An error occurred when restoring the backup of your ~/.bashrc file\nPlease, check for potential errors in it"
+		echo -e >&2 "\nERROR: An error occured when applying the alias\nPlease verify that you typed the alias correctly\nAlso, be aware that the alias name cannot contain space(s). However, it can contain \"-\" (hyphen) or \"_\" (underscore)"
+		mv -f ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || echo -e >&2 "\nERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
 		exit 1
 	fi
 }
@@ -132,18 +150,18 @@ delete() {
 			;;
 		esac
 
-		cp -p ~/.bashrc ~/.bashrc-bck_malias-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo -e "\nBackup of the .bashrc file created" || exit 1
+		cp -p ~/.bashrc ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo -e "\nBackup of the .bashrc file created" || exit 1
 		sed -i "/^alias ${alias_delete}$/d" ~/.bashrc || exit 1
 
 		source_error=$(bash -x ~/.bashrc 2>/dev/null; echo $?)
 
 		if [ "${source_error}" = 0 ]; then
 			echo -e "\nAlias ${alias_delete} successfully deleted" || exit 1
-			rm -f ~/.bashrc-bck_malias-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo "Backup of the .bashrc file deleted"
+			rm -f ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo "Backup of the .bashrc file deleted"
 			exec bash
 		else
 			echo -e >&2 "\nERROR: An error occured when deleting the alias"
-			mv -f ~/.bashrc-bck_malias-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || echo -e >&2 "ERROR: A error occurred when restoring the backup of your ~/.bashrc file\nPlease, check for potential errors in it"
+			mv -f ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc && echo "Backup of the .bashrc file restored" || echo -e >&2 "ERROR: A error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
 			exit 1
 		fi
 	else
@@ -166,11 +184,11 @@ case "${argument}" in
 	-d|--delete)
 		delete
 	;;
-	-v|--version)
-		version
-	;;
 	-h|--help)
 		help
+	;;
+	-V|--version)
+		version
 	;;
 	*)
 		invalid_argument

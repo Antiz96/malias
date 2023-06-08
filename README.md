@@ -98,58 +98,17 @@ Example below with the 31st alias (`list='ls -ltr'`), previously added in the "a
 
 ## Documentation
 
-See the documentation below:  
+Options:  
+-m, --menu     Print a menu that lists possible operations to choose from (default operation)  
+-a, --add      Add a new alias  
+-l, --list     List all current aliases  
+-d, --delete   Delete an existing alias  
+-h, --help     Display this message and exit  
+-V, --version  Display version information and exit  
   
-*The documentation is also available as a man page and with the "--help" function.*  
-*Run `man malias` or `malias --help` after you've installed the **malias** package.*  
-  
-### SYNOPSIS
-
-malias [OPTION]
-
-### DESCRIPTION
-
-An alias manager that allows you to easily add, delete or list your bash aliases in your ".bashrc" file by automating and securing every steps for you.
-
-### OPTIONS
-
-#### -m, --menu
-
-Open the main menu which allows you to choose what operation to perform.  
-You  can  either type `add` (`a` for short) to add a new alias, `list` (`l` for short) to list your current aliases, `delete` (`d` for short) to delete an alias, `help` (`h` for short) to print this man page or `quit` (`q` for short) to quit Malias.  
-This is the default if no option is passed.  
-
-#### -a, --add
-
-Launch the `add` operation which allows you to add a new alias.  
-
-#### -l, --list
-
-Launch the `list` operation which prints the list of your current aliases.  
-
-#### -d, --delete
-
-Launch the `delete` operation which allows you to delete an alias.  
-
-#### -v, --version
-
-Print the current version.
-
-#### -h, --help
-
-Print the help.
-
-### EXIT STATUS 
-
-#### 0 
-
-if OK
-
-#### 1
-
-if problems (user didn't gave confirmation to proceed with the adding/deletion, a problem happened during the backup/restore process of the .bashrc file, the added alias is incorrect, ...)
+For more information, see the malias(1) man page
 
 ## Contributing
 
 You can raise your issues, feedbacks and suggestions in the [issues tab](https://github.com/Antiz96/malias/issues).  
-[Pull requests](https://github.com/Antiz96/malias/pulls) are welcomed as well !
+[Pull requests](https://github.com/Antiz96/malias/pulls) are welcomed as well!
