@@ -174,7 +174,10 @@ delete() {
 case "${argument}" in
 	-m|--menu|"")
 		menu
-	;;&
+	;;
+esac
+
+case "${argument}" in
 	-a|--add)
 		add
 	;;
