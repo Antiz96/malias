@@ -196,7 +196,7 @@ delete() {
 	fi
 }
 
-# Execute the different functions depending on the selected argument
+# Execute the different functions depending on the argument
 case "${argument}" in
 	-m|--menu|"")
 		menu
