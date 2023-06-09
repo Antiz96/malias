@@ -6,8 +6,8 @@
 
 # Variables definition
 name="malias"
-version="1.2.3"
-argument="${1}"
+version="1.2.4"
+option="${1}"
 
 # Definition of the help function: Print the help message
 help() {
@@ -33,9 +33,9 @@ version() {
 	echo "${name} ${version}"
 }
 
-# Definition of the invalid_argument function: Print an error message, ask the user to check the help and exit
-invalid_argument() {
-	echo -e >&2 "${name}: invalid argument -- '${argument}'\nTry '${name} --help' for more information."
+# Definition of the invalid_option function: Print an error message, ask the user to check the help and exit
+invalid_option() {
+	echo -e >&2 "${name}: invalid option -- '${option}'\nTry '${name} --help' for more information."
 	exit 1
 }
 
@@ -102,28 +102,28 @@ help    (Print the help)
 quit    (Quit Malias)
 EOF
 
-	read -rp $'\nWhat operation do you want to do? ' argument
-	argument=$(echo "${argument}" | awk '{print tolower($0)}')
+	read -rp $'\nWhat operation do you want to do? ' option
+	option=$(echo "${option}" | awk '{print tolower($0)}')
 
-	case "${argument}" in
+	case "${option}" in
 		a|add)
-			argument="--add"
+			option="--add"
 		;;
 		l|list)
-			argument="--list"
+			option="--list"
 		;;
 		d|delete)
-			argument="--delete"
+			option="--delete"
 		;;
 		h|help)
-			argument="--help"
+			option="--help"
 		;;
 		q|quit)
 			echo -e "\nGoodbye !"
 			exit 0
 		;;
 		*)
-			invalid_argument
+			invalid_option
 		;;
 	esac
 
@@ -207,14 +207,14 @@ delete() {
 	fi
 }
 
-# Execute the different functions depending on the argument
-case "${argument}" in
+# Execute the different functions depending on the option
+case "${option}" in
 	-m|--menu|"")
 		menu
 	;;
 esac
 
-case "${argument}" in
+case "${option}" in
 	-a|--add)
 		add
 	;;
@@ -231,6 +231,6 @@ case "${argument}" in
 		version
 	;;
 	*)
-		invalid_argument
+		invalid_option
 	;;
 esac
