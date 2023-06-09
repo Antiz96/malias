@@ -41,7 +41,7 @@ invalid_argument() {
 
 # Definition of the backup_bashrc function: Create a backup of the .bashrc file (used in the "add" and "delete" function)
 backup_bashrc() {
-	if cp -p ~/.bashrc "~/.bashrc-bck_${name}-${operation}-${alias_name}"; then
+	if cp -p ~/.bashrc ~/".bashrc-bck_${name}-${operation}-${alias_name}"; then
 		echo -e "\nBackup of the .bashrc file created"
 	else
 		echo -e >&2 "\nERROR: An error occured when creating the backup of the .bashrc file"
@@ -63,7 +63,7 @@ check_bashrc_error() {
 			;;
 		esac
 
-		rm -f "~/.bashrc-bck_${name}-${operation}-${alias_name}"
+		rm -f ~/".bashrc-bck_${name}-${operation}-${alias_name}"
 		echo "Backup of the .bashrc file deleted"
 		exec bash
 	else
@@ -76,7 +76,7 @@ check_bashrc_error() {
 			;;
 		esac
 
-		if mv -f "~/.bashrc-bck_${name}-${operation}-${alias_name}" ~/.bashrc; then
+		if mv -f ~/".bashrc-bck_${name}-${operation}-${alias_name}" ~/.bashrc; then
 			echo "Backup of the .bashrc file restored"
 		else
 			echo -e >&2 "ERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
