@@ -6,7 +6,7 @@
 
 # Variables definition
 name="malias"
-version="1.2.2"
+version="1.2.3"
 argument="${1}"
 
 # Definition of the help function: Print the help message
@@ -37,6 +37,53 @@ version() {
 invalid_argument() {
 	echo -e >&2 "${name}: invalid argument -- '${argument}'\nTry '${name} --help' for more information."
 	exit 1
+}
+
+# Definition of the backup_bashrc function: Create a backup of the .bashrc file (used in the "add" and "delete" function)
+backup_bashrc() {
+	if cp -p ~/.bashrc "~/.bashrc-bck_${name}-${operation}-${alias_name}"; then
+		echo -e "\nBackup of the .bashrc file created"
+	else
+		echo -e >&2 "\nERROR: An error occured when creating the backup of the .bashrc file"
+		exit 3
+	fi
+}
+
+# Definition of the check_bashrc_error function: Check for potential errors after adding or removing an alias and restore the backup of the .bashrc file if needed (used in the "add" and "delete" function)
+check_bashrc_error() {
+	source_error=$(bash -x ~/.bashrc 2>/dev/null; echo $?)
+
+	if [ "${source_error}" -eq 0 ]; then
+		case "${operation}" in
+			add)
+				echo -e "\nAlias ${new_alias} successfully added"
+			;;
+			delete)
+				echo -e "\nAlias ${alias_delete} successfully deleted"
+			;;
+		esac
+
+		rm -f "~/.bashrc-bck_${name}-${operation}-${alias_name}"
+		echo "Backup of the .bashrc file deleted"
+		exec bash
+	else
+		case "${operation}" in
+			add)
+				echo -e >&2 "\nERROR: An error occured when adding the alias\nPlease verify that you typed the alias correctly\nAlso, be aware that the alias name cannot contain space(s). However, it can contain \"-\" (hyphen) or \"_\" (underscore)"
+			;;
+			delete)
+				echo -e >&2 "\nERROR: An error occured when deleting the alias"
+			;;
+		esac
+
+		if mv -f "~/.bashrc-bck_${name}-${operation}-${alias_name}" ~/.bashrc; then
+			echo "Backup of the .bashrc file restored"
+		else
+			echo -e >&2 "ERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
+			exit 3
+		fi
+		exit 4
+	fi
 }
 
 # Definition of the menu function: Print a menu that lists possible operations to choose from
@@ -85,6 +132,8 @@ EOF
 
 # Definition of the add function: Add a new alias
 add() {
+	operation="add"
+
 	read -rp "Please, type the alias name you want to add: " alias_name
 	read -rp "Please, type the command you want to associate the alias with: " alias_command
 
@@ -102,34 +151,14 @@ add() {
 		;;
 	esac
 
-	if cp -p ~/.bashrc ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")"; then
-		echo -e "\nBackup of the .bashrc file created"
-	else
-		echo -e >&2 "\nERROR: An error occured when creating the backup of the .bashrc file"
-		exit 3
-	fi
+	backup_bashrc
 
 	echo "alias ${new_alias}" >> ~/.bashrc
 
-	source_error=$(bash -x ~/.bashrc 2>/dev/null; echo $?)
-
-	if [ "${source_error}" -eq 0 ]; then
-		echo -e "\nAlias ${new_alias} successfully added"
-		rm -f ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo "Backup of the .bashrc file deleted"
-		exec bash
-	else
-		echo -e >&2 "\nERROR: An error occured when adding the alias\nPlease verify that you typed the alias correctly\nAlso, be aware that the alias name cannot contain space(s). However, it can contain \"-\" (hyphen) or \"_\" (underscore)"
-		if mv -f ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc; then
-			echo "Backup of the .bashrc file restored"
-		else
-			echo -e >&2 "ERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
-			exit 3
-		fi
-		exit 4
-	fi
+	check_bashrc_error
 }
 
-# Definition of the list function: Print the list of current aliases
+# Definition of the list function: Print the list of current aliases (also used in the "delete" function)
 list() {
 	alias_list=$(grep -w "^alias" ~/.bashrc | awk '{$1=""}1' | sed "s/ //")
 		
@@ -141,8 +170,10 @@ list() {
 	done < <(printf '%s\n' "${alias_list}")
 }
 
-# Definition of the delete function: Delete an alias (meant to be used in combination with the list function)
+# Definition of the delete function: Delete an alias
 delete() {
+	operation="delete"
+
 	list
 
 	read -rp $'\nPlease, type the number associated to the alias you want to remove: ' alias_selected
@@ -165,31 +196,11 @@ delete() {
 			;;
 		esac
 
-		if cp -p ~/.bashrc ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")"; then
-			echo -e "\nBackup of the .bashrc file created"
-		else
-			echo -e >&2 "\nERROR: An error occured when creating the backup of the .bashrc file"
-			exit 3
-		fi
+		backup_bashrc
 
 		sed -i "/^alias ${alias_delete}$/d" ~/.bashrc
 
-		source_error=$(bash -x ~/.bashrc 2>/dev/null; echo $?)
-
-		if [ "${source_error}" = 0 ]; then
-			echo -e "\nAlias ${alias_delete} successfully deleted"
-			rm -f ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo "Backup of the .bashrc file deleted"
-			exec bash
-		else
-			echo -e >&2 "\nERROR: An error occured when deleting the alias"
-			if mv -f ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc; then
-				echo "Backup of the .bashrc file restored"
-			else
-				echo -e >&2 "ERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
-				exit 3
-			fi
-			exit 4
-		fi
+		check_bashrc_error
 	else
 		echo -e >&2 "\nError : Invalid input\nPlease, make sure you typed the correct number associated to the alias you want to delete"
 		exit 1
