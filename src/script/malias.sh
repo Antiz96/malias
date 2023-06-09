@@ -79,6 +79,8 @@ EOF
 			invalid_argument
 		;;
 	esac
+
+	echo
 }
 
 # Definition of the add function: Add a new alias
