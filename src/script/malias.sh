@@ -5,7 +5,7 @@
 # Licensed under the GPL-3.0 license
 
 # Variables definition
-name=malias
+name="malias"
 version="1.2.2"
 argument="${1}"
 
