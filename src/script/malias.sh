@@ -79,8 +79,6 @@ EOF
 			invalid_argument
 		;;
 	esac
-
-	clear >"$(tty)"
 }
 
 # Definition of the add function: Add a new alias
@@ -105,7 +103,7 @@ add() {
 	if cp -p ~/.bashrc ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")"; then
 		echo -e "\nBackup of the .bashrc file created"
 	else
-		echo -e >&2 "ERROR: An error occured when creating the backup of the .bashrc file"
+		echo -e >&2 "\nERROR: An error occured when creating the backup of the .bashrc file"
 		exit 3
 	fi
 
@@ -114,7 +112,7 @@ add() {
 	source_error=$(bash -x ~/.bashrc 2>/dev/null; echo $?)
 
 	if [ "${source_error}" -eq 0 ]; then
-		echo "Alias ${new_alias} successfully added"
+		echo -e "\nAlias ${new_alias} successfully added"
 		rm -f ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" && echo "Backup of the .bashrc file deleted"
 		exec bash
 	else
@@ -122,7 +120,7 @@ add() {
 		if mv -f ~/.bashrc-bck_${name}-add-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc; then
 			echo "Backup of the .bashrc file restored"
 		else
-			echo -e >&2 "\nERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
+			echo -e >&2 "ERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
 			exit 3
 		fi
 		exit 4
@@ -168,7 +166,7 @@ delete() {
 		if cp -p ~/.bashrc ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")"; then
 			echo -e "\nBackup of the .bashrc file created"
 		else
-			echo -e >&2 "ERROR: An error occured when creating the backup of the .bashrc file"
+			echo -e >&2 "\nERROR: An error occured when creating the backup of the .bashrc file"
 			exit 3
 		fi
 
@@ -185,7 +183,7 @@ delete() {
 			if mv -f ~/.bashrc-bck_${name}-delete-"${alias_name}"-"$(date +"%d-%m-%Y")" ~/.bashrc; then
 				echo "Backup of the .bashrc file restored"
 			else
-				echo -e >&2 "\nERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
+				echo -e >&2 "ERROR: An error occurred when restoring the backup of the ~/.bashrc file\nPlease, check for potential errors in it"
 				exit 3
 			fi
 			exit 4
