@@ -104,7 +104,7 @@ Options:
 
 Exit Codes:
   0  OK
-  1  Invalid argument/option
+  1  Invalid option
   2  User didn't gave the confirmation to proceed
   3  An error occured when creating/restoring the backup of the .bashrc file
   4  An error occured when adding/removing the alias
