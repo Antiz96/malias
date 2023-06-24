@@ -44,7 +44,7 @@ backup_bashrc() {
 	if cp -p ~/.bashrc ~/".bashrc-bck_${name}-${operation}-${alias_name}"; then
 		echo -e "\nBackup of the .bashrc file created"
 	else
-		echo -e >&2 "\nERROR: An error occured when creating the backup of the .bashrc file"
+		echo -e >&2 "\nERROR: An error occurred when creating the backup of the .bashrc file"
 		exit 3
 	fi
 }
@@ -69,10 +69,10 @@ check_bashrc_error() {
 	else
 		case "${operation}" in
 			add)
-				echo -e >&2 "\nERROR: An error occured when adding the alias\nPlease verify that you typed the alias correctly\nAlso, be aware that the alias name cannot contain space(s). However, it can contain \"-\" (hyphen) or \"_\" (underscore)"
+				echo -e >&2 "\nERROR: An error occurred when adding the alias\nPlease verify that you typed the alias correctly\nAlso, be aware that the alias name cannot contain space(s). However, it can contain \"-\" (hyphen) or \"_\" (underscore)"
 			;;
 			delete)
-				echo -e >&2 "\nERROR: An error occured when deleting the alias"
+				echo -e >&2 "\nERROR: An error occurred when deleting the alias"
 			;;
 		esac
 
