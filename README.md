@@ -4,11 +4,11 @@ An alias manager that allows you to easily add, delete or list your bash aliases
 
 ## Table of contents
 
-* [Description](#description)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Documentation](#documentation)
-* [Contributing](#contributing)
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
 
 ## Description
 
