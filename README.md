@@ -18,12 +18,11 @@ An alias manager that allows you to easily add, delete or list your bash aliases
 
 ### AUR
 
-Arch (or Arch based distro) users can install the [malias](https://aur.archlinux.org/packages/malias "malias AUR package") AUR package.
+Arch Linux users can install the [malias](https://aur.archlinux.org/packages/malias "malias AUR package") AUR package.
 
 ### From Source
 
-Download the archive of the [latest stable release](https://github.com/Antiz96/malias/releases/latest) and extract it.  
-*Alternatively, you can clone this repository via `git`.*  
+Download the archive of the [latest stable release](https://github.com/Antiz96/malias/releases/latest) and extract it (alternatively, you can clone this repository via `git`).
 
 To install `malias`, go into the extracted/cloned directory and run the following command:
 
@@ -96,8 +95,7 @@ Example below with the 31st alias (`list='ls -ltr'`), previously added in the "a
 
 ## Documentation
 
-```bash
-$ malias -h
+```text
 Options:  
   -m, --menu     Print a menu that lists possible operations to choose from (default operation)  
   -a, --add      Add a new alias  
