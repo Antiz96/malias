@@ -26,4 +26,4 @@ jobs:
         run: find . -name '*.sh' -exec shellcheck --color=always {} +
 
       - name: mdl
-        run: mdl .
+        run: mdl --style .github/workflows/mdl_style.rb .
