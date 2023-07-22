@@ -69,7 +69,8 @@ Check the screenshots below for more information.
 
 Run the `malias` command to open the main menu (also accessible with `malias --menu` or `malias -m`).
 
-You can then type `add` (`a` for short) to add a new alias, `list` (`l` for short) to list your current aliases, `delete` (`d` for short) to delete an alias, `help` (`h` for short) to display the help or `quit` (`q` for short) to quit:  
+You can then type `add` (`a` for short) to add a new alias, `list` (`l` for short) to list your current aliases, `delete` (`d` for short) to delete an alias, `help` (`h` for short) to display the help or `quit` (`q` for short) to quit:
+
 ![Malias-Menu](https://user-images.githubusercontent.com/53110319/166229747-45705537-e3ac-413c-9d3d-ba3d0a541a83.png)
 
 *Alternatively, you can run the following commands to launch the associated function directly:*  
@@ -81,16 +82,19 @@ You can then type `add` (`a` for short) to add a new alias, `list` (`l` for shor
 To add an alias, type its name and then the command you want to associate it with.  
 The new alias can then be used right away.  
 Each step is automated and secured for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...).  
-Example below with the alias `list='ls -ltr'`, where **list** is the alias name and **ls -ltr** the command:  
+Example below with the alias `list='ls -ltr'`, where **list** is the alias name and **ls -ltr** the command:
+
 ![Malias-Add](https://user-images.githubusercontent.com/53110319/166231323-42a1a89d-3bc5-4cd3-93a0-abe16b5c1def.png)
 
-The `list` function is self explanatory, it basically prints your current aliases like so:  
+The `list` function is self explanatory, it basically prints your current aliases like so:
+
 ![Malias-List](https://user-images.githubusercontent.com/53110319/166232292-aa5b2d15-683d-4535-ab07-576bfb6c05cf.png)
 
 To delete an alias, type the number associated to the alias you want to delete.  
 The deleted alias will then be gone right away.  
 Once again, each step is automated and secured for you (with backup of your .bashrc file, error checking, backup restore if needed, etc...)  
-Example below with the 31st alias (`list='ls -ltr'`), previously added in the "add" function example:  
+Example below with the 31st alias (`list='ls -ltr'`), previously added in the "add" function example:
+
 ![Malias-Delete](https://user-images.githubusercontent.com/53110319/166232379-be5b619e-2d8f-4d09-8f71-c87c9a43e550.png)
 
 ## Documentation
