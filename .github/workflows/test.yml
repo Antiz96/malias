@@ -10,17 +10,20 @@ jobs:
       options: --privileged
 
     steps:
-      - name: Clone repo
+      - name: clone repo
         uses: actions/checkout@v3
 
-      - name: Update container
+      - name: update container
         run: apk update && apk upgrade
 
-      - name: Install packages
-        run: apk add shellcheck py3-pip && pip install codespell
+      - name: install packages
+        run: apk add shellcheck py3-pip ruby && pip install codespell && gem install mdl
 
-      - name: Run codespell
+      - name: codespell
         run: codespell --enable-colors
 
-      - name: Run shellcheck
+      - name: shellcheck
         run: find . -name '*.sh' -exec shellcheck --color=always {} +
+
+      - name: mdl
+        run: mdl .
